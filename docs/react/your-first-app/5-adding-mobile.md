@@ -37,14 +37,14 @@ const savePicture = async (photo: Photo, fileName: string): Promise<UserPhoto> =
       filepath: savedFile.uri,
       webviewPath: Capacitor.convertFileSrc(savedFile.uri),
     };
-  } else {
-    // Use webPath to display the new image instead of base64 since it's
-    // already loaded into memory
-    return {
-      filepath: fileName,
-      webviewPath: photo.webPath,
-    };
   }
+
+  // Use webPath to display the new image instead of base64 since it's
+  // already loaded into memory
+  return {
+    filepath: fileName,
+    webviewPath: photo.webPath,
+  };
 };
 ```
 
@@ -52,7 +52,7 @@ Next, add a new bit of logic in the `loadSaved` function. On mobile, we can dire
 
 ```tsx
 const loadSaved = async () => {
-  const { value } = await Storage.get({ key: PHOTO_STORAGE });
+  const { value } = await Preferences.get({ key: PHOTO_STORAGE });
 
   const photosInStorage = (value ? JSON.parse(value) : []) as UserPhoto[];
   // If running on the web...
