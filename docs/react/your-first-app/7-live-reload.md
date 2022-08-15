@@ -91,7 +91,7 @@ const deletePhoto = async (photo: UserPhoto) => {
   const newPhotos = photos.filter((p) => p.filepath !== photo.filepath);
 
   // Update photos array cache by overwriting the existing photo array
-  Storage.set({ key: PHOTO_STORAGE, value: JSON.stringify(newPhotos) });
+  Preferences.set({ key: PHOTO_STORAGE, value: JSON.stringify(newPhotos) });
 
   // delete photo file from filesystem
   const filename = photo.filepath.substr(photo.filepath.lastIndexOf('/') + 1);
